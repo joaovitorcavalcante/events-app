@@ -7,7 +7,7 @@ import { Component, Input } from "@angular/core";
       <h2>{{event?.name}}</h2>
       <div>Date: {{event?.date}}</div>
       <div
-        [ngClass]="getStartTimeClass()" 
+        [ngStyle]="getStartTimeStyle()"
         [ngSwitch]="event?.time"
       >
         Time: {{event?.time}}
@@ -26,8 +26,6 @@ import { Component, Input } from "@angular/core";
     </div>
   `,
   styles: [`
-    .green { color: #003300 !important; }
-    .bold { font-weight: bold; }
     .pad-left: { padding-left: 10px; }
     .well div { color: #bbb; }
     .thumbnail { min-height: 210px; }
@@ -36,15 +34,9 @@ import { Component, Input } from "@angular/core";
 export class EventThumbnailComponent {
   @Input() event: any;
 
-  getStartTimeClass() {
-    const isEarlyStart = this.event && this.event.time === '8:00 am';
-
-    return {
-      green: isEarlyStart,
-      bold: isEarlyStart
-    };
-
-    // return ['green', 'bold'];
-    // return 'green bold';
+  getStartTimeStyle(): Object {
+    if (this.event && this.event.time === '8:00 am')
+      return { color: '#003300', 'font-weight': 'bold' };
+    return {};
   }
 }
