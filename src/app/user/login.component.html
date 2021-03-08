@@ -5,10 +5,16 @@
     #loginForm="ngForm"
     (ngSubmit)="login(loginForm.value)"
     autocomplete="off"
+    novalidate
   >
     <div class="form-group" >
       <label for="userName">User Name:</label>
+      <em
+        *ngIf="loginForm.controls.userName?.invalid &&
+        loginForm.controls.userName?.touched"
+      >Required</em>
       <input
+        required
         (ngModel)="userName"
         id="userName"
         name="userName"
@@ -18,7 +24,12 @@
     </div>
     <div class="form-group" >
       <label for="password">Password:</label>
+      <em
+        *ngIf="loginForm.controls.password?.invalid &&
+        loginForm.controls.userName?.touched"
+      >Required</em>
       <input
+        required
         (ngModel)="password"
         id="password"
         name="password"
@@ -27,7 +38,7 @@
         placeholder="Password..." />
     </div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
-    <button type="button" class="btn btn-default">Cancel</button>
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+    <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
   </form>
 </div>
